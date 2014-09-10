@@ -7,12 +7,12 @@
     <meta name="fragment" content="!" />
     <meta name="description" content="{{description}}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <!-- dependencies stylesheets and scripts -->
-    <link rel="stylesheet" href="http://airpub.qiniudn.com/dist/airpub-dependencies.min.css">
-    <script src="http://airpub.qiniudn.com/dist/airpub-dependencies.min.js"></script>
+    <!-- dependencies stylesheets and scripts, using default GitHub Page CDN -->
+    <link rel="stylesheet" href="http://static.duoshuo.com/airpub/airpub-dependencies.min.css?v=0.2.2">
+    <script src="http://static.duoshuo.com/airpub/airpub-dependencies.min.js?v=0.2.2"></script>
     <!-- default theme: chill -->
-    <link rel="stylesheet" href="http://airpub.qiniudn.com/themes/chill/css/chill.min.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="http://airpub.qiniudn.com/themes/chill/favicon.ico" />
+    <link rel="stylesheet" href="http://static.duoshuo.com/airpub/themes/chill/0.2.0/css/chill.min.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="http://static.duoshuo.com/airpub/themes/chill/0.2.0/favicon.ico" />
   </head>
   <body ng-controller="base" ng-class="state.current.controller">
     <div ui-view="layout"></div>
@@ -22,7 +22,8 @@
         name: 'Airpub', // 博客名称
         description: 'Just another Airpub blog', // 博客描述
         url: 'http://your-uri', // 博客站点永久链接
-        themePath: 'http://airpub.qiniudn.com/themes', // 博客主题根目录，目前支持七牛CDN
+        theme: 'chill/0.2.0', // 当前主题与主题版本（如无版本可省略为：`chill`）
+        themePath: 'themes', // 博客主题根目录，目前支持七牛CDN
         upyun: { // 用于上传图片
           bucket: 'mybucket', // 又拍云 bucket 配置 (可选)
           form_api_secret: 'xxxxxx' // 又拍云 form_api_secret (可选)
@@ -35,6 +36,6 @@
     <!-- duoshuo embed js -->
     <script src="http://static.duoshuo.com/embed.unstable.js"></script> 
     <!-- airpub angular app -->
-    <script src="http://airpub.qiniudn.com/dist/airpub.min.js"></script>
+    <script src="http://static.duoshuo.com/airpub/airpub.min.js?v=0.2.2"></script>
   </body>
 </html>
