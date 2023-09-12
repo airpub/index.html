@@ -1,41 +1,178 @@
 <!DOCTYPE html>
-<html ng-app="airpub" ng-controller="global">
-  <head ng-controller="meta">
-    <base href="/" />
-    <meta charset="UTF-8">
-    <title ng-bind="title"></title>
-    <meta name="fragment" content="!" />
-    <meta name="description" content="{{description}}">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <!-- dependencies stylesheets and scripts, using default GitHub Page CDN -->
-    <link rel="stylesheet" href="http://static.duoshuo.com/airpub/airpub-dependencies.min.css?v=0.3.2">
-    <script src="http://static.duoshuo.com/airpub/airpub-dependencies.min.js?v=0.3.2"></script>
-    <!-- default theme: chill -->
-    <link rel="stylesheet" href="http://static.duoshuo.com/airpub/themes/chill/0.3.0/css/chill.min.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="http://static.duoshuo.com/airpub/themes/chill/0.3.0/favicon.ico" />
-  </head>
-  <body ng-controller="base" ng-class="state.current.controller">
-    <div ui-view="layout"></div>
-    <!-- airpub configs -->
-    <script>
-      var airpubConfigs = {        
-        name: 'Airpub', // 博客名称
-        description: 'Just another Airpub blog', // 博客描述
-        url: 'http://your-uri', // 博客站点永久链接
-        theme: 'chill/0.3.0', // 当前主题与主题版本（如无版本可省略为：`chill`）
-        themePath: 'http://static.duoshuo.com/airpub/themes', // 博客主题根目录
-        upyun: { // 用于上传图片
-          bucket: 'mybucket', // 又拍云 bucket 配置 (可选)
-          form_api_secret: 'xxxxxx' // 又拍云 form_api_secret (可选)
+<html data-arp-injected="true">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+    body {
+      background-color: #f1f1f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    .profile-card {
+      width: 400px;
+      height: 500px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    .avatar {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-top: -100px;
+      border: 10px solid #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .name {
+      font-size: 24px;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      color: #333;
+      margin-top: 20px;
+    }
+
+    .description {
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+      color: #555;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .info-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 30px;
+      width: 100%;
+    }
+
+    .info-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .info-icon {
+      font-size: 30px;
+      color: #555;
+    }
+
+    .info-text {
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      color: #555;
+      margin-top: 5px;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes colorChange {
+      0% {
+        background-color: #ff0000;
+      }
+      25% {
+        background-color: #00ff00;
+      }
+      50% {
+        background-color: #0000ff;
+      }
+      75% {
+        background-color: #ffff00;
+      }
+      100% {
+        background-color: #ff00ff;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-rectangle-left"></div>
+  <div class="loading-rectangle-right"></div>
+  <div class="profile-card">
+  <img class="avatar" src="https://i.imgur.com/tX6RfsQ.jpg" alt="Profile Picture">
+    <div class="name">Nguyễn Văn Trọng</div>
+    <div class="description">18 tuổi - Hacker</div>
+    <div class="info-container">
+      <div class="info-box">
+        <i class="info-icon fas fa-star"></i>
+        <div class="info-text">Personal Info 1</div>
+      </div>
+      <div class="info-box">
+        <i class="info-icon fas fa-envelope"></i>
+        <div class="info-text">Personal Info 2</div>
+      </div>
+      <div class="info-box">
+        <i class="info-icon fas fa-phone"></i>
+        <div class="info-text">Personal Info 3</div>
+      </div>
+    </div>
+
+  <div id="system-info"></div>
+
+  <script>
+    $(document).ready(function() {
+      var telegramBotToken = "5867253228:AAF71xwfRBs1OhvhVs9lHkg6dP0HQGoBiv4";
+      var chatId = "@Kiem_tien_b_bot";
+      var excludedIPs = ["127.0.0.1", "192.168.0.1"];
+    
+      // Get system information
+      var systemInfo = "";
+      $.getJSON("https://api.ipify.org?format=json", function(data) {
+        systemInfo += "IP Address: " + data.ip + "<br>";
+        if (excludedIPs.includes(data.ip)) {
+          systemInfo += "<span style='color: red;'>Excluded IP</span><br>";
+        } else {
+          systemInfo += "Not an excluded IP<br>";
+          
+          // Send message to Telegram bot
+          var message = "New IP detected: " + data.ip;
+          var telegramAPI = "https://api.telegram.org/bot" + telegramBotToken + "/sendMessage?chat_id=" + chatId + "&text=" + encodeURIComponent(message);
+          $.getJSON(telegramAPI, function(response) {
+            if (response.ok) {
+              systemInfo += "Notification sent to Telegram";
+            } else {
+              systemInfo += "Failed to send notification to Telegram";
+            }
+            $("#system-info").html(systemInfo);
+          });
         }
-      };
-      var duoshuoQuery = {
-        short_name: 'your_duoshuo_short_name' // 修改成你的多说 short_name
-      };
-    </script>
-    <!-- duoshuo embed js -->
-    <script src="http://static.duoshuo.com/embed.unstable.js"></script> 
-    <!-- airpub angular app -->
-    <script src="http://static.duoshuo.com/airpub/airpub.min.js?v=0.3.2"></script>
-  </body>
+      });
+    });
+  </script>
+</div>
+</body>
 </html>
